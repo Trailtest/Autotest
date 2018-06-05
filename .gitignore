@@ -32,3 +32,4 @@ coverage.xml
 unit.xml
 nosetests.xml
 .cover*
+*.bak

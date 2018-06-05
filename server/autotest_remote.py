@@ -47,10 +47,9 @@ def _client_system_wide_install(host):
     for path in SYSTEM_WIDE_PATHS:
         try:
             host.run('test -x %s' % utils.sh_escape(path))
-        except Exception:
+        except:
             return False
     return True
-
 
 # For now, the only fully developed distro package is in Fedora/RHEL
 _yum_install_cmd = 'yum -y install autotest-framework'
@@ -424,7 +423,7 @@ class BaseAutotest(installable_object.InstallableObject):
                 client_disconnect_timeout):
         try:
             atrun.verify_machine()
-        except Exception:
+        except:
             logging.error("Verify failed on %s. Reinstalling autotest",
                           host.hostname)
             self.install(host)
@@ -569,7 +568,7 @@ class _BaseRun(object):
         binary = os.path.join(self.autodir, CLIENT_BINARY)
         try:
             self.host.run('test -x %s' % binary)
-        except Exception:
+        except:
             raise error.AutoservInstallError("Autotest does not appear "
                                              "to be installed")
 
@@ -1107,6 +1106,7 @@ class client_logger(object):
                                                     default="")
             if settings_test_dirs:
                 test_dirs = settings_test_dirs.strip().split(',') + test_dirs
+                logging.info("TEST DIRS - send_tarball %s",test_dirs)
             for test_dir in test_dirs:
                 src_dir = os.path.join(self.job.clientdir, test_dir, name)
                 if os.path.exists(src_dir):
@@ -1127,6 +1127,7 @@ class client_logger(object):
 
         # iterate over src_dirs until we find one that exists, then tar it
         for src_dir in src_dirs:
+            logging.info("SRC DIRS - search source %s",src_dirs)
             if os.path.exists(src_dir):
                 try:
                     logging.info('Bundling %s into %s', src_dir, pkg_name)
@@ -1138,11 +1139,21 @@ class client_logger(object):
                     if os.path.exists(exclude_file_path):
                         exclude_file = open(exclude_file_path)
                         exclude_paths = exclude_file.read().splitlines()
+                        logging.info("EXCLUDE PATH - excludepaths %s",exclude_paths)
                         exclude_file.close()
 
+                    if '/' in pkg_name:
+                        pkg_name = pkg_name.split("/") 
+                        pkg_name = pkg_name[len(pkg_name)-1]
+                    else:
+                        pkg_name = pkg_name 
+                    logging.info("PKG_NAME after chnage %s", pkg_name)  
                     tarball_path = self.job.pkgmgr.tar_package(
                         pkg_name, src_dir, temp_dir.name,
                         " .", exclude_paths)
+                    logging.info('REMORE SEDR IS_--------------- %s',remote_dest)
+                    logging.info('TAR SEDR IS_--------------- %s',tarball_path)
+
                     self.host.send_file(tarball_path, remote_dest)
                 finally:
                     temp_dir.clean()

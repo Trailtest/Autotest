@@ -116,8 +116,16 @@ class BgJob(object):
         # Ok, bash is nice and everything, but we might face occasions where
         # it is not available. Just do the right thing and point to /bin/sh.
         shell = '/bin/bash'
+        self.autotest_path = '/usr/local/autotest/'
+        self.test_name = ''
         if not os.path.isfile(shell):
             shell = '/bin/sh'
+        if 'tar.bz2.tmp' and 'client/tests/linux-tools' in command:
+            logging.info('ENTERED CONDITION-------------------------%s',command)
+            self.autotest_path = command.split('-C ')[1].split('client')[0]
+            cmd_str = command.split('-j')
+            command = cmd_str[0] + ' -j  .' + ' -C ' + self.autotest_path + 'client/tests/linux-tools/shared' + ' -j  .' 
+            logging.info('COMMAND AFTER CHANGE------------------- %s',command)
         self.sp = subprocess.Popen(command, stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE,
                                    preexec_fn=self._reset_sigpipe,
@@ -125,6 +133,34 @@ class BgJob(object):
                                    shell=True,
                                    executable=shell,
                                    stdin=stdin)
+        time.sleep(2)
+        # create shared folder after untar of test folder in client
+        if 'tar xjf ' + self.autotest_path + 'tmp/packages' and '/site_tests/linux-tools' in command:
+            mkdir_shared = 'mkdir -p ' + self.autotest_path + 'tmp/site_tests/linux-tools/shared'
+            logging.info('COMMAND_1 AFTER CHANGE------------------- %s',mkdir_shared)
+            self.sp = subprocess.Popen(mkdir_shared, stdout=subprocess.PIPE,
+                                       stderr=subprocess.PIPE,
+                                       preexec_fn=self._reset_sigpipe,
+                                       close_fds=close_fds,
+                                       shell=True,
+                                       executable=shell,
+                                       stdin=stdin)
+        time.sleep(2)
+        if 'tar xjf ' + self.autotest_path + 'tmp/packages' and '/site_tests/linux-tools' in command: 
+            self.test_name = command.split('site_tests/linux-tools/')[1] 
+            logging.info('TESTNAME _---------------------------------%s',self.test_name)
+            cp_shrd_files = 'cp -r ' + self.autotest_path + 'tmp/site_tests/linux-tools/' + self.test_name + '/* ' + self.autotest_path + 'tmp/site_tests/linux-tools/shared'
+            logging.info('COMMAND_2 AFTER CHANGE------------------- %s',cp_shrd_files)
+            self.sp = subprocess.Popen(cp_shrd_files, stdout=subprocess.PIPE,
+                                       stderr=subprocess.PIPE,
+                                       preexec_fn=self._reset_sigpipe,
+                                       close_fds=close_fds,
+                                       shell=True,
+                                       executable=shell,
+                                       stdin=stdin)
+
+
+      
 
     def output_prepare(self, stdout_file=None, stderr_file=None):
         self.stdout_file = stdout_file
@@ -2648,7 +2684,6 @@ class VersionableClass(object):
         """
         raise NotImplementedError("Method 'is_right_version' must be"
                                   " implemented in child class")
-
 
 if os.path.exists(os.path.join(os.path.dirname(__file__), 'site_utils.py')):
     # Here we are importing site utils only if it exists

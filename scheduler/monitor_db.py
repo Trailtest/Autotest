@@ -15,14 +15,13 @@ import sys
 import time
 import traceback
 import urllib
-
+from autotest.frontend import setup_django_environment  # pylint: disable=W0611
 import django.db
 from autotest.client import os_dep
 from autotest.client.shared import host_protections, utils
 from autotest.client.shared import logging_manager, mail
 from autotest.client.shared.settings import settings
 from autotest.database_legacy import database_connection
-from autotest.frontend import setup_django_environment  # pylint: disable=W0611
 from autotest.frontend.afe import model_attributes
 from autotest.frontend.afe import models, rpc_utils, readonly_connection
 from autotest.scheduler import drone_manager, drones
