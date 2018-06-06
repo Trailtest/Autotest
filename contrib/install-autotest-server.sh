@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ATHOME_DEFAULT=/usr/local/autotest
-AUTOTEST_DEFAULT_GIT_REPO='git://github.com/autotest/autotest.git'
+AUTOTEST_DEFAULT_GIT_REPO='git://github.com/Trailtest/Autotest.git'
 AUTOTEST_DEFAULT_GIT_BRANCH='master'
 DATETIMESTAMP=$(date "+%m-%d-%Y-%H-%M-%S")
 BASENAME=$(echo $(basename $0) | cut -f1 -d '.')
