@@ -1,0 +1,28 @@
+AUTHOR = "Facebook"
+NAME = "Powertest"
+TIME = "Long"
+TEST_CATEGORY = "Functional"
+TEST_CLASS = "PowerTest"
+TEST_TYPE = "client"
+
+DOC = """
+This test verify various power suppy units of open cellular board 
+and read/write power consumption parameters and validates with input values.
+"""
+
+#path = '/home/autotest/tmp/site_tests/opencellular'
+path = '/usr/local/autotest/tmp/site_tests/opencellular'
+
+#job.run_test('opencellular/aptest/manufacturing/msata_configuration', test_path=path)
+#job.run_test('opencellular/aptest/manufacturing/pseport_configuration', test_path=path)
+#job.run_test('opencellular/aptest/manufacturing/pdport_configuration', test_path=path)
+#job.run_test('opencellular/aptest/manufacturing/i2cbus_configuration', test_path=path)
+#job.run_test('opencellular/aptest/manufacturing/powersource_list', test_path=path)
+#job.run_test('opencellular/aptest/manufacturing/device_presence', test_path=path)
+#job.run_test('opencellular/aptest/manufacturing/uartlink_check', test_path=path)
+#job.run_test('opencellular/aptest/manufacturing/uartlink_tiva2gboard', test_path=path)
+#job.run_test('opencellular/aptest/manufacturing/gbc_temperature_sensor', test_path=path)
+job.run_test('opencellular/aptest/manufacturing/gbc_current_sensor', test_path=path)
+
+
+
