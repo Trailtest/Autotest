@@ -2,7 +2,7 @@ AUTHOR = "Facebook"
 NAME = "OpenCellular"
 TIME = "Long"
 TEST_CATEGORY = "Functional"
-TEST_CLASS = "PowerTest"
+TEST_CLASS = "OpenCellular"
 TEST_TYPE = "client"
 
 DOC = """
