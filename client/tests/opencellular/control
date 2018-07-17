@@ -1,5 +1,5 @@
 AUTHOR = "Facebook"
-NAME = "Powertest"
+NAME = "OpenCellular"
 TIME = "Long"
 TEST_CATEGORY = "Functional"
 TEST_CLASS = "PowerTest"
