@@ -1,4 +1,0 @@
-probe qemu.kvm.cpu_in
-{
-printf("addr=%d,val=%u\n",addr,val);
-}

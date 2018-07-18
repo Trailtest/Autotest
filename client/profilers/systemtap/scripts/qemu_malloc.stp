@@ -1,4 +1,0 @@
-probe qemu.kvm.qemu_malloc
-{
-printf("Malloc size=%d,ptr=%d\n", size,ptr);
-}

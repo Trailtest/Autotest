@@ -1,4 +1,0 @@
-probe qemu.kvm.qemu_memalign
-{
-printf("qemu_memalign alignment=%d,size=%d,ptr=%d\n",alignment,size,ptr);
-}

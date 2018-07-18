@@ -1,4 +1,0 @@
-probe qemu.kvm.usb_ehci_reset
-{
-  printf("Got it reset=1\n");
-}

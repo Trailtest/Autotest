@@ -1,4 +1,0 @@
-probe qemu.kvm.qemu_free
-{
- printf("ptr=%d\n",ptr);
-}

@@ -1,4 +1,0 @@
-probe qemu.kvm.paio_submit
-{
- printf("acb=%d,opaque=%d,sector_num=%d,nb_sectors=%d,type=%d\n",acb,opaque,sector_num,nb_sectors,type)
-}

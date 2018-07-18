@@ -1,4 +1,0 @@
-probe qemu.kvm.virtqueue_pop
-{
-    printf("vq=%d,elem=%d,in_num=%d,out_num=%d\n",vq,elem,in_num,out_num);
-}

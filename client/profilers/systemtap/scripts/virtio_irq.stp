@@ -1,4 +1,0 @@
-probe qemu.kvm.virtio_irq
-{
-printf("vq=%d\n",vq);
-}

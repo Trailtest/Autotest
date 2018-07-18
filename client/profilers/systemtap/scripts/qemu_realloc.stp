@@ -1,4 +1,0 @@
-probe qemu.kvm.qemu_realloc
-{
- printf("ptr=%d,size=%d,newptr=%d\n",ptr,size,newptr);
-}

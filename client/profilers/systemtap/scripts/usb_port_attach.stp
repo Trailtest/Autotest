@@ -1,5 +1,0 @@
-# cat usb_port_attach.stp
-probe qemu.kvm.usb_port_attach
-{
- printf("bus=%d,port=%d\n",bus,port);
-}

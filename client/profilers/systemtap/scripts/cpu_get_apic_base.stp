@@ -1,4 +1,0 @@
-probe qemu.kvm.cpu_get_apic_base
-{
-printf("val=%u\n",val);
-}

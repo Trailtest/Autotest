@@ -1,4 +1,0 @@
-probe qemu.kvm.usb_ehci_mmio_readl
-{
-  printf("addr=%d,str=%d,val=%d\n",addr,str,val);
-}
